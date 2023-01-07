@@ -4,14 +4,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class BankAccountGui implements ActionListener {
-    public BankAccountGui (){
+public class BankAccountGui extends Account implements ActionListener {
 
-        JFrame frame = new JFrame();
-        JTextArea inputAmount = new JTextArea(1,1);
-        JTextArea inputAccountNumber = new JTextArea(1,1);
-        JButton button = new JButton("Withdraw");
-        JButton button2 = new JButton("Deposit");
+    JFrame frame;
+    JTextArea inputAmount;
+    JTextArea inputAccountNumber;
+    JButton button;
+    JButton button2;
+    public BankAccountGui (){
+        super();
+
+         frame = new JFrame();
+         inputAmount = new JTextArea(1,1);
+         inputAccountNumber = new JTextArea(1,1);
+        button = new JButton("Withdraw");
+         button2 = new JButton("Deposit");
         JButton button3 = new JButton("Transfer");
         JButton button4 = new JButton("Display Balance");
         JButton button5 = new JButton("pay fee");
@@ -24,7 +31,7 @@ public class BankAccountGui implements ActionListener {
         JPanel panel = new JPanel();
 
         panel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
-        panel.setLayout(new GridLayout(5,2));
+        panel.setLayout(new GridLayout(6,3, 2,4));
         panel.add(inputAmount);
         panel.add(inputAccountNumber);
         panel.add(button);
@@ -48,6 +55,7 @@ public class BankAccountGui implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+    button.addActionListener(withdraw(12));
+    button2.addActionListener(deposit(500));
     }
 }

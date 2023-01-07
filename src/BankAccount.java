@@ -1,3 +1,5 @@
+import java.awt.event.ActionListener;
+
 public abstract class BankAccount {
 
     private int accountNumber;
@@ -24,8 +26,8 @@ public abstract class BankAccount {
         return this.balance;
     }
 
-    public abstract void withdraw(double amount);
-    public abstract void deposit(double amount);
+    public abstract ActionListener withdraw(double amount);
+    public abstract ActionListener deposit(double amount);
     public abstract void transfer(double amount, int accountNumber);
     public abstract void payFee(double amount);
     public abstract void recieveInterest (double amount);
