@@ -1,36 +1,51 @@
-import java.awt.event.ActionListener;
+
 
 public abstract class BankAccount {
-
     private int accountNumber;
     protected double balance;
-    private String accountHolder;
 
-    public BankAccount(){
+
+    private double interest;
+    private int numberOfCards;
+    private static int numberOfAccounts = 1;
+
+    public int getNumberOfCards() {
+        return numberOfCards;
     }
 
-    public BankAccount(int accountNumber, String accountHolder, double balance){
-        this.accountNumber =accountNumber;
-        this.accountHolder = accountHolder;
-        balance = 0;
+    public void setNumberOfCards(int numberOfCards) {
+        this.numberOfCards = numberOfCards;
     }
+
 
     public int getAccountNumber() {
-        return this.accountNumber;
+
+        return accountNumber;
     }
 
-    public String getAccountHolder() {
-        return accountHolder;
-    }
-    public double getBalance(){
-        return this.balance;
+    public double getBalance() {
+        return balance;
     }
 
-    public abstract ActionListener withdraw(double amount);
-    public abstract ActionListener deposit(double amount);
-    public abstract void transfer(double amount, int accountNumber);
-    public abstract void payFee(double amount);
-    public abstract void recieveInterest (double amount);
+    public double getInterest() {
+        return interest;
+    }
+
+    public void setInterest(double interest) {
+        this.interest = interest;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+
+    public BankAccount() {
+    accountNumber = numberOfAccounts++;
+    }
+
+
+
 
 
 }

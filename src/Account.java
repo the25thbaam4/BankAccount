@@ -1,55 +1,81 @@
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
-public class Account extends BankAccount{
-    private double fee = -9.90;
-    private double interest = 0.01;
+public class Account {
+    private int accountNumber;
+    private String accountHolder;
+    private double balance;
+    private final double fee = 9.90;
+    private final double interest = 0.5;
+    Scanner sc = new Scanner(System.in);
+
 //%9s      %9s     %9s     %9s\n"
 
-    public Account (){
+    public Account() {
 
     }
 
-    public Account (int accountNumber, String accountHolder, double balance){
-        super(accountNumber,accountHolder, balance);
+    public Account(int accountNumber, String accountHolder, double balance) {
+        this.accountNumber = accountNumber;
+        this.accountHolder = accountHolder;
+        this.balance = 0;
 
     }
-    @Override
-    public ActionListener withdraw(double amount) {
-        if (balance > 0 | balance > amount){
-            balance -= amount;
-            System.out.println(balance);
-        }
-        else {
+
+    public void withdraw(double amount) {
+       amount = sc.nextDouble();
+        if (balance > 0 && balance > amount) {
+            balance -= amount - fee;
+            System.out.printf("new balance after withdrawal  %.2f \n",balance);
+        } else {
             System.out.println("insufficient funds");
         }
-        return null;
+
     }
 
-    @Override
-    public ActionListener deposit(double amount) {
-        if (amount < 0){
-            System.out.println("Negative amounts can not be deposited!");
+
+    public void deposit(double amount) {
+        if (amount < 0) {
+            System.out.println("\nNegative amounts can not be deposited!");
+        } else {
+            balance += amount + interest;
+
+            System.out.printf("\nNew balance after deposit %.2f \n",balance);
+        }
+
+
+    }
+
+
+    public void transfer(double amount, Account account) {
+        if (this.balance < amount){
+            System.out.println("Insufficient funds!");
         }
         else {
-            balance += amount;
-            System.out.println(balance);
+           this.balance -=amount;
+           account.balance += amount;
+            System.out.printf("Account %s transferred $ to %.2f \n ", this.accountHolder,this.balance);
         }
 
-        return null;
     }
 
-    @Override
-    public void transfer(double amount, int accountNumber) {
-
+    public double getBalance() {
+        return balance;
     }
 
-    @Override
-    public void payFee(double amount) {
-
+    public int getAccountNumber() {
+        return accountNumber;
     }
 
-    @Override
-    public void recieveInterest(double amount) {
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
 
+    public String getAccountHolder() {
+        return accountHolder;
+    }
+
+    public void setAccountHolder(String accountHolder) {
+        this.accountHolder = accountHolder;
     }
 }

@@ -4,45 +4,60 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class BankAccountGui extends Account implements ActionListener {
+
+public class BankAccountGui implements ActionListener {
 
     JFrame frame;
     JTextArea inputAmount;
+
     JTextArea inputAccountNumber;
-    JButton button;
-    JButton button2;
+    JButton withdrawButton;
+    JButton depositButton;
+    JButton transferButton;
+    JButton displayButton;
+    JButton payFeeButton;
+    JButton interestButton;
+
+    private final int[] accountNumber = new int[10];
+
+    private double balance = 0;
+    private final double interest = 1.99;
+    private final double fee = 2.99;
+
+
     public BankAccountGui (){
         super();
 
          frame = new JFrame();
-         inputAmount = new JTextArea(1,1);
-         inputAccountNumber = new JTextArea(1,1);
-        button = new JButton("Withdraw");
-         button2 = new JButton("Deposit");
-        JButton button3 = new JButton("Transfer");
-        JButton button4 = new JButton("Display Balance");
-        JButton button5 = new JButton("pay fee");
-        JButton button6 = new JButton("Add Interest");
+         inputAmount = new JTextArea("Enter Amount",1,1 );
+         inputAccountNumber = new JTextArea("Enter Account Nr.",1,1);
 
-        button.addActionListener(this);
+        withdrawButton = new JButton("Withdraw");
+        depositButton = new JButton("Deposit");
+        transferButton = new JButton("Transfer");
+        displayButton = new JButton("Display Balance");
+        payFeeButton = new JButton("pay fee");
+        interestButton = new JButton("Add Interest");
 
-
-        JLabel label = new JLabel("Number of clicks: 0");
+        JLabel label = new JLabel();
         JPanel panel = new JPanel();
+
+
+
+
 
         panel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
         panel.setLayout(new GridLayout(6,3, 2,4));
         panel.add(inputAmount);
         panel.add(inputAccountNumber);
-        panel.add(button);
-        panel.add(button2);
-        panel.add(button3);
-        panel.add(button4);
-        panel.add(button5);
-        panel.add(button6);
+
+        panel.add(withdrawButton);
+        panel.add(depositButton);
+        panel.add(transferButton);
+        panel.add(displayButton);
+        panel.add(payFeeButton);
+        panel.add(interestButton);
         panel.add(label);
-
-
 
         frame.add(panel,BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,11 +66,57 @@ public class BankAccountGui extends Account implements ActionListener {
         frame.setVisible(true);
 
 
+
+
+
+
+
+        withdrawButton.addActionListener(e -> {
+          String str =  inputAmount.getText();
+           int input = Integer.parseInt(str);
+                    if (balance > 0 && balance > input) {
+                        balance -= input;
+                        System.out.printf("new balance after withdrawal  %.2f \n",balance);
+                    } else {
+                        System.out.println("insufficient funds");
+                    }
+
+                }
+                );
+        depositButton.addActionListener(e -> {
+            String str =  inputAmount.getText();
+            int input = Integer.parseInt(str);
+            if (input < 0) {
+                System.out.println("Negative amounts can not be deposited!");
+            } else {
+                balance += input;
+                System.out.printf("\nNew balance after deposit %.2f \n",balance);
+            }
+        });
+
+        transferButton.addActionListener(e -> {
+
+        });
+
+        interestButton.addActionListener(e -> {
+                    balance += interest;
+                    System.out.println("Balance after receiving interest " + balance);
+                });
+
+        payFeeButton.addActionListener(e -> {
+            balance -= fee;
+            System.out.println("Balance after paying fee " + balance);
+        });
+
+
+        displayButton.addActionListener(e -> System.out.println("Current Balance " +balance));
+
+
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    button.addActionListener(withdraw(12));
-    button2.addActionListener(deposit(500));
+
     }
 }
